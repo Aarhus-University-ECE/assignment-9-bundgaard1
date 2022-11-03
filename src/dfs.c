@@ -10,25 +10,27 @@
 #include <stdlib.h>  /* abort */
 
 void DFT(node *root) {
-    print_node(root);
+    print_node(root);  // Print the value of the node.
+
+    // Recursive step left first, the the right child.
     if (root->lchild != NULL) DFT(root->lchild);
     if (root->rchild != NULL) DFT(root->rchild);
     return;
 }
 
 node *make_node(int num, node *left, node *right) {
-    node *new = malloc(sizeof(node));
-    new->lchild = left;
+    node *new = malloc(sizeof(node));  // Make a new node
+    new->lchild = left;  // Declare the correct values to new nodes
     new->rchild = right;
     new->num = num;
     new->visited = false;
-    return new;
+    return new;  // Return pointer to the new node
 }
 
 void free_node(node *p) {
-    if (p == NULL) return;
-    free_node(p->lchild);
-    free_node(p->rchild);
+    if (p == NULL) return;  // If there is no node, we dont care
+    free_node(p->lchild);   // Free the left node
+    free_node(p->rchild);   // Free the right node
     free(p);
     return;
 }
@@ -57,19 +59,17 @@ void print_tree(node *p, int depth) {
 }
 
 stack *push(stack *topp, node *node) {
-    stack *newS = (stack *)malloc(sizeof(stack));
+    stack *newS = (stack *)malloc(sizeof(stack));  // New  top stack
 
-    newS->next = topp;
+    newS->next = topp;  // Declare the values
     newS->node = node;
 
-    return newS;
+    return newS;  // return new stack
 }
 
 bool isEmpty(stack *topp) { return topp == NULL; }
 
 node *top(stack *topp) { return topp->node; }
-// Utility function to pop topp
-// element from the stack
 
 stack *pop(stack *topp) {
     assert(!isEmpty(topp));

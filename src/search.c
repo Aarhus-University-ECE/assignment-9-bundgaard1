@@ -4,12 +4,17 @@
 
 bool search(int a[], int n, int x) {
     if (n > 0) {
+        // Base case 1:
         if (a[n - 1] == x) {
             return true;
-        } else {
+        }
+        // Recursive step:
+        else {
             return search(a, n - 1, x);
         }
-    } else {
+    }
+    // Base case 2:
+    else {
         return false;
     }
 
