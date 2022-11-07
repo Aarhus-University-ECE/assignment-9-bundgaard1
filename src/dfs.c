@@ -15,15 +15,15 @@ void DFT(node *root) {
     s->next = NULL;
 
     while (!isEmpty(s)) {
-        node *curr = top(s);  // The the top element of stack
+        node curr = *top(s);  // The the top element of stack
 
         s = pop(s);  // Remove it from the stack
 
         // Push right and left child to the stack.
-        if (curr->rchild != NULL) s = push(s, curr->rchild);
-        if (curr->lchild != NULL) s = push(s, curr->lchild);
+        if (curr.rchild != NULL) s = push(s, curr.rchild);
+        if (curr.lchild != NULL) s = push(s, curr.lchild);
 
-        print_node(curr);  // Print the cuurent node
+        print_node(&curr);  // Print the cuurent node
     }
 
     return;
@@ -84,8 +84,9 @@ node *top(stack *topp) { return topp->node; }
 
 stack *pop(stack *topp) {
     assert(!isEmpty(topp));
-
-    return topp->next;
+    stack *newS = topp->next;
+    free(topp);
+    return newS;
 }
 
 void print_stack(stack *topp) {
