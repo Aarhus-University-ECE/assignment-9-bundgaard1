@@ -1,4 +1,6 @@
 extern "C" {
+#include <malloc.h>
+
 #include <cstddef>
 
 #include "dfs.h"

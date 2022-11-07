@@ -10,11 +10,22 @@
 #include <stdlib.h>  /* abort */
 
 void DFT(node *root) {
-    print_node(root);  // Print the value of the node.
+    stack *s = (stack *)malloc(sizeof(stack));  // Make the new stack
+    s->node = root;  // Make the first stack "node" the root
+    s->next = NULL;
 
-    // Recursive step left first, the the right child.
-    if (root->lchild != NULL) DFT(root->lchild);
-    if (root->rchild != NULL) DFT(root->rchild);
+    while (!isEmpty(s)) {
+        node *curr = top(s);  // The the top element of stack
+
+        s = pop(s);  // Remove it from the stack
+
+        // Push right and left child to the stack.
+        if (curr->rchild != NULL) s = push(s, curr->rchild);
+        if (curr->lchild != NULL) s = push(s, curr->lchild);
+
+        print_node(curr);  // Print the cuurent node
+    }
+
     return;
 }
 
@@ -73,6 +84,7 @@ node *top(stack *topp) { return topp->node; }
 
 stack *pop(stack *topp) {
     assert(!isEmpty(topp));
+
     return topp->next;
 }
 
